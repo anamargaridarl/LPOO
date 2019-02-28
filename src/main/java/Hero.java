@@ -1,9 +1,7 @@
 import com.googlecode.lanterna.*;
 import com.googlecode.lanterna.graphics.TextGraphics;
 
-public class Hero {
-
-    private Position position;
+public class Hero extends Element {
 
     public Hero() {
         position = new Position(10, 10);
@@ -31,12 +29,7 @@ public class Hero {
         this.position.setY(position.getY());
     }
 
-    public void draw(TextGraphics graphics)
-    {
-        graphics.setForegroundColor(TextColor.Factory.fromString("#FFFF33"));
-        graphics.enableModifiers(SGR.BOLD);
-        graphics.putString(new TerminalPosition(position.getX(), position.getY()), "X");
-    }
+
 
 }
 

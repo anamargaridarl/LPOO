@@ -32,10 +32,10 @@ public class Arena {
 
     public Arena(int width, int height)
     {
-        this.walls = createWalls();
         hero = new Hero();
         this.height = height;
         this.width = width;
+        this.walls = createWalls();
     }
 
     public void draw(TextGraphics graphics)
@@ -44,19 +44,33 @@ public class Arena {
         graphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(width, height), ' ');
 
         for (Wall wall : walls)
-            wall.draw(graphics);
+            wall.draw(graphics, "#8B4513", "W");
 
-        hero.draw(graphics);
+        hero.draw(graphics,"#FFFF33", "X");
     }
 
     public void moveHero(Position position) {
-        if (canHeroMove(position))
+
+        int flag = 0;
+
+        for (Wall wall : walls) {
+            if (!canHeroMove(position, wall))
+                flag = 1;
+
+        }
+
+        if(flag != 1)
             hero.setPosition(position);
     }
 
-    private boolean canHeroMove(Position position) {
-        return position.getX() <= width && position.getY() <= height;
+
+    private boolean canHeroMove(Position position, Wall wall) {
+        if(wall.getPosition().equals(position))
+            return false;
+        else return true;
     }
+
+
 
     public Position moveRight()
     {

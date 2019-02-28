@@ -19,7 +19,7 @@ public class Game {
 
     public Game() throws IOException {
 
-        arena = new Arena(200, 300);
+        arena = new Arena(50, 20);
         Terminal terminal = new DefaultTerminalFactory().createTerminal();
         screen = new TerminalScreen(terminal);
         graphics = screen.newTextGraphics();
