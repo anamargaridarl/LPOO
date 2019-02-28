@@ -18,4 +18,14 @@ public class Element {
         graphics.enableModifiers(SGR.BOLD);
         graphics.putString(new TerminalPosition(position.getX(), position.getY()), form);
     }
+
+    public void setPosition(Position position)
+    {
+        this.position.setX(position.getX());
+        this.position.setY(position.getY());
+    }
+
+    public Position getPosition() {
+        return position;
+    }
 }

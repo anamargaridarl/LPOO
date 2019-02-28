@@ -23,11 +23,7 @@ public class Hero extends Element {
         return new Position(position.getX() + 1, position.getY());
     }
 
-    public void setPosition(Position position)
-    {
-        this.position.setX(position.getX());
-        this.position.setY(position.getY());
-    }
+
 
 
 

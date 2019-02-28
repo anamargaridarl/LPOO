@@ -13,6 +13,7 @@ public class Arena {
     private int height;
     private List<Wall> walls;
     private List<Coin> coins;
+    Monster monster;
     Hero hero;
 
 
@@ -47,6 +48,7 @@ public class Arena {
         this.width = width;
         this.walls = createWalls();
         this.coins = createCoins();
+        monster = new Monster(1,1);
     }
 
     public void draw(TextGraphics graphics)
@@ -62,17 +64,34 @@ public class Arena {
 
         hero.draw(graphics,"#FFFF33", "X");
 
+        monster.draw(graphics,"#ff0000","P" );
 
     }
 
     public void moveHero(Position position) {
 
-        if (canHeroMove(position))
+        if (canMove(position))
             hero.setPosition(position);
     }
 
+    public void moveMonster()
+    {
+        Position position = monster.move();
 
-    private boolean canHeroMove(Position position) {
+        if(canMove(position))
+            monster.setPosition(position);
+
+    }
+
+    public boolean verifyMonsterCollisions()
+    {
+        if(monster.getPosition().equals(hero.getPosition()))
+            return true;
+        else
+            return false;
+    }
+
+    private boolean canMove(Position position) {
 
         for (Wall wall : walls) {
             if (wall.getPosition().equals(position))
@@ -112,4 +131,11 @@ public class Arena {
         coins.remove(coin);
     }
 
+    public int getHeight() {
+        return height;
+    }
+
+    public int getWidth() {
+        return width;
+    }
 }

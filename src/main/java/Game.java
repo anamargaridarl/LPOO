@@ -77,6 +77,14 @@ public class Game {
                 }
         }
 
+        arena.moveMonster();
+
+
+        if(arena.verifyMonsterCollisions()) {
+            System.out.print("Game Over!");
+            screen.close();
+        }
+
     }
 
 }

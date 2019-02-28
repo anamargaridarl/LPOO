@@ -6,9 +6,6 @@ public class Coin extends Element {
         position = new Position(x,y);
     }
 
-    public Object getPosition() {
-        return position;
-    }
 
 
 }
