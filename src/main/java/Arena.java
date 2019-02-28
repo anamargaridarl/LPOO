@@ -5,12 +5,14 @@ import com.googlecode.lanterna.graphics.TextGraphics;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Arena {
 
     private int width;
     private int height;
     private List<Wall> walls;
+    private List<Coin> coins;
     Hero hero;
 
 
@@ -30,12 +32,21 @@ public class Arena {
         return walls;
     }
 
+    private List<Coin> createCoins() {
+        Random random = new Random();
+        ArrayList<Coin> coins = new ArrayList<>();
+        for (int i = 0; i < 5; i++)
+            coins.add(new Coin(random.nextInt(width - 2) + 1, random.nextInt(height - 2) + 1));
+        return coins;
+    }
+
     public Arena(int width, int height)
     {
         hero = new Hero();
         this.height = height;
         this.width = width;
         this.walls = createWalls();
+        this.coins = createCoins();
     }
 
     public void draw(TextGraphics graphics)
@@ -46,31 +57,37 @@ public class Arena {
         for (Wall wall : walls)
             wall.draw(graphics, "#8B4513", "W");
 
+        for (Coin coin : coins)
+            coin.draw(graphics, "#ff00ff", "O");
+
         hero.draw(graphics,"#FFFF33", "X");
+
+
     }
 
     public void moveHero(Position position) {
 
-        int flag = 0;
-
-        for (Wall wall : walls) {
-            if (!canHeroMove(position, wall))
-                flag = 1;
-
-        }
-
-        if(flag != 1)
+        if (canHeroMove(position))
             hero.setPosition(position);
     }
 
 
-    private boolean canHeroMove(Position position, Wall wall) {
-        if(wall.getPosition().equals(position))
-            return false;
-        else return true;
+    private boolean canHeroMove(Position position) {
+
+        for (Wall wall : walls) {
+            if (wall.getPosition().equals(position))
+                return false;
+        }
+
+        for (Coin coin : coins) {
+            if (coin.getPosition().equals(position)) {
+                retrieveCoins(coin);
+                return false;
+            }
+        }
+
+        return true;
     }
-
-
 
     public Position moveRight()
     {
@@ -88,6 +105,11 @@ public class Arena {
     public Position moveDown()
     {
         return hero.moveDown();
+    }
+
+    public void retrieveCoins(Coin coin)
+    {
+        coins.remove(coin);
     }
 
 }
