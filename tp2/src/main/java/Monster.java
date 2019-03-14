@@ -1,18 +1,17 @@
-import java.util.concurrent.ThreadLocalRandom;
 
 public class Monster extends Element {
 
-    public Monster(int x, int y)
-    {
-        position = new Position(x,y);
+    public Monster(int x, int y) {
+        position = new Position(x, y);
     }
-    public Position move()
-    {
-        Position p = new Position(1,1);
-        int randomNum = ThreadLocalRandom.current().nextInt(1, 6 + 1);
 
-        switch(randomNum)
-        {
+    public Position move() {
+        Position p = new Position(1, 1);
+        int range = 6;
+
+        int rand = (int) (Math.random() * range) + 1;
+
+        switch (rand) {
             case 1: {
                 p.setX(position.getX() + 1);
                 p.setY(position.getY() + 1);
